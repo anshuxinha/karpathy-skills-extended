@@ -1,0 +1,11 @@
+{
+  "name": "karpathy-skills-extended",
+  "description": "Always-on Karpathy coding rules plus a short gap check. Ask only when a missing fact would change the result and you cannot look it up.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Anshuman Sinha"
+  },
+  "license": "MIT",
+  "keywords": ["guidelines", "karpathy", "agents", "clarifying-questions"],
+  "skills": ["./skills/karpathy-skills-extended"]
+}

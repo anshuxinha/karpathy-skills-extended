@@ -1,0 +1,15 @@
+The four coding rules in this repository follow Andrej Karpathy's public notes on LLM coding mistakes:
+
+https://x.com/karpathy/status/2015883857489522876
+
+They also follow the structure of the MIT-licensed guidelines published at:
+
+https://github.com/multica-ai/andrej-karpathy-skills
+
+That upstream repository does not currently expose a LICENSE file through the GitHub license API. Treat the guidelines text there as someone else's work. This repository restates the four rules in its own words and links the source.
+
+The decision to ask the user about an unresolved choice, instead of closing it inside the agent, follows Matt Pocock's grill-me and grilling skills:
+
+https://github.com/mattpocock/skills
+
+Those skills are MIT licensed, Copyright (c) 2026 Matt Pocock. This repository does not copy his skill text. grill-me interviews every open branch. The gap check here asks only the facts that would change the work.
