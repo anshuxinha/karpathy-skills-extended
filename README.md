@@ -6,7 +6,7 @@ Andrej Karpathy named this habit in his [notes on LLM coding mistakes](https://x
 
 Matt Pocock's [grill-me](https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md) skill, and the [grilling](https://github.com/mattpocock/skills) session under it, walk every branch of the plan and wait until nothing is left assumed. Use that when the idea is still soft. On a prompt that is already a task, the interview runs long.
 
-This skill stays loaded on every prompt. Before it acts, it looks for a fact that would change the result and that it cannot read from the repo, the tools, or the conversation. It asks that, in one round, with the answer it would have used. Three questions is the cap. If nothing passes that test, it does the work and does not mention the check.
+This skill takes the best of both: Karpathy's discipline of surfacing assumptions, and grill-me's refusal to proceed while something that matters is still open. It stays loaded on every prompt. Before it acts, it looks for a fact that would change the result and that it cannot read from the repo, the tools, or the conversation. It asks that, in one round, with the answer it would have used. Three questions is the cap. If nothing passes that test, it does the work and does not mention the check.
 
 ![Same delete-button prompt. One side ships a guessed behavior. The other asks hide, deactivate, or remove, recommends the pattern the table already uses, and then builds that.](images/one-question.png)
 
