@@ -1,0 +1,4 @@
+interface:
+  display_name: "Karpathy skills, extended"
+  short_description: "Ask only the gaps that would change the work, then proceed"
+  default_prompt: "Use $karpathy-skills-extended before acting. Ask only when a missing fact would change the outcome and cannot be looked up."

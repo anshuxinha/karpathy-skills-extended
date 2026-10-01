@@ -1,6 +1,6 @@
 {
   "name": "karpathy-skills-extended",
-  "description": "Always-on Karpathy coding rules plus a short gap check. Ask only when a missing fact would change the result and you cannot look it up.",
+  "description": "Always-on Karpathy coding rules plus a short gap check, for Codex, Claude, Cursor, Antigravity, Gemini, and Grok. Ask only when a missing fact would change the result and you cannot look it up.",
   "version": "1.0.0",
   "author": {
     "name": "Anshuman Sinha"

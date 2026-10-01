@@ -36,30 +36,31 @@ On a material gap, the gap check overrides "state the assumption and proceed."
 
 ## Install
 
-The behavior file is [`skills/karpathy-skills-extended/SKILL.md`](skills/karpathy-skills-extended/SKILL.md). Copy [`rules/karpathy-skills-extended.md`](rules/karpathy-skills-extended.md) into a rules directory to load it every session. Copy the skill folder to get `/karpathy-skills-extended`.
+The behavior file is [`skills/karpathy-skills-extended/SKILL.md`](skills/karpathy-skills-extended/SKILL.md). Codex, Claude, Cursor, Antigravity, Gemini, and Grok all read that Agent Skills layout. Copy the folder into the host's skills directory, and paste [`rules/karpathy-skills-extended.md`](rules/karpathy-skills-extended.md) into the host's always-on instructions. A skills directory lets the agent open the file when the description matches, and run `/karpathy-skills-extended`. The always-on file is what puts the check in context on every prompt, including in hosts that only show the description until they decide to read the skill.
 
-Grok, every session:
-
-```powershell
-New-Item -ItemType Directory -Force "$env:USERPROFILE\.grok\rules" | Out-Null
-New-Item -ItemType Directory -Force "$env:USERPROFILE\.grok\skills\karpathy-skills-extended" | Out-Null
-Copy-Item "rules\karpathy-skills-extended.md" "$env:USERPROFILE\.grok\rules\karpathy-skills-extended.md"
-Copy-Item "skills\karpathy-skills-extended\SKILL.md" "$env:USERPROFILE\.grok\skills\karpathy-skills-extended\SKILL.md"
+```bash
+npx skills add anshuxinha/karpathy-skills-extended
 ```
 
-Grok reads `~/.grok/rules/*.md` at the start of every session. The skill description also marks it for model invocation, and you can run it with `/karpathy-skills-extended`.
+Pass `-a` with the installer name: `codex`, `claude-code`, `cursor`, `antigravity`, `antigravity-cli`, `gemini-cli`, or `grok`. Example: `npx skills add anshuxinha/karpathy-skills-extended -a codex`.
 
-Cursor, every session: copy [`.cursor/rules/karpathy-skills-extended.mdc`](.cursor/rules/karpathy-skills-extended.mdc) to `~/.cursor/rules/`. The rule sets `alwaysApply: true`.
+| Host | Skill folder | Always-on file |
+| --- | --- | --- |
+| Codex | `~/.codex/skills/` and `<repo>/.agents/skills/` | `~/.codex/AGENTS.md` |
+| Claude Code | `~/.claude/skills/` | `~/.claude/rules/` or `~/.claude/CLAUDE.md` |
+| Cursor | `~/.cursor/skills/` and `<repo>/.agents/skills/` | [`.cursor/rules/karpathy-skills-extended.mdc`](.cursor/rules/karpathy-skills-extended.mdc) copied to `~/.cursor/rules/` (`alwaysApply: true`) |
+| Antigravity | `~/.gemini/config/skills/`, `~/.gemini/antigravity/skills/`, `~/.gemini/antigravity-cli/skills/`, and `<repo>/.agents/skills/` | `AGENTS.md` in the project |
+| Gemini CLI | `~/.gemini/skills/` and `<repo>/.agents/skills/` | `GEMINI.md` |
+| Grok | `~/.grok/skills/` and `~/.agents/skills/` | `~/.grok/rules/` |
 
-Claude Code: copy `rules/karpathy-skills-extended.md` to `~/.claude/rules/`, and copy the skill folder to `~/.claude/skills/karpathy-skills-extended/`.
+Those paths are the ones the [skills installer](https://github.com/vercel-labs/skills) and each host's docs use. Codex also reads `agents/openai.yaml` inside the skill for its skill picker.
 
-As a plugin:
+Plugin install adds the slash command on that host. The always-on file is still the copy that loads the check every session.
 
 ```bash
 grok plugin install anshuxinha/karpathy-skills-extended --trust
+agy plugin install https://github.com/anshuxinha/karpathy-skills-extended
 ```
-
-Plugin install adds the slash command. The rules copy above is what loads the check every session.
 
 ## Examples
 

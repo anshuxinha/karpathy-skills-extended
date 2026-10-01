@@ -1,8 +1,8 @@
 # Karpathy skills, extended
 
-Canonical text: `skills/karpathy-skills-extended/SKILL.md`. This file is the same procedure, without skill frontmatter, so a harness can load it every session. Copy it to `~/.grok/rules/` or `~/.claude/rules/`. If you change the behavior, edit the skill first, then replace this body so the two stay the same.
+Canonical text: `skills/karpathy-skills-extended/SKILL.md`. This file is the same procedure, without skill frontmatter, so a host can load it every session. Paste it into that host's always-on instructions: `~/.codex/AGENTS.md`, `AGENTS.md`, `~/.claude/CLAUDE.md` or `~/.claude/rules/`, `GEMINI.md`, `~/.grok/rules/`, or the Cursor rule. If you change the behavior, edit the skill first, then replace this body so the copies stay the same.
 
-Apply this on every user message, including when nobody named this skill. Do not announce the check.
+Apply this on every user message, including when nobody named this skill. The host may be Codex, Claude, Cursor, Antigravity, Gemini, or Grok. The check is the same in each. Do not announce the check.
 
 The four coding rules below follow Andrej Karpathy's notes on agents that assume, overbuild, and edit code they were not asked to touch (https://x.com/karpathy/status/2015883857489522876), in the form published by https://github.com/multica-ai/andrej-karpathy-skills. The gap check is the part this skill adds. Matt Pocock's grill-me (https://github.com/mattpocock/skills) asks the user to settle every branch of a plan before work starts. That session fits a soft idea. On an ordinary prompt it runs long. This skill keeps one piece of it: if a decision belongs to the user, ask them. Ask only the gaps that pass the tests below, then do the task.
 

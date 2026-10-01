@@ -1,8 +1,8 @@
 ---
 name: karpathy-skills-extended
-description: "Always-on check for every user request, before code, writing, a plan, or an answer. Find knowledge gaps that would change the outcome and that you cannot resolve from the repo, tools, or the conversation. Ask only those, in one short round, then wait. If there are none, do the work and stay quiet about the check. Includes Karpathy coding behavior: think before coding, simplicity first, surgical changes, and a check you can run. Use on every prompt, when the user runs /karpathy-skills-extended, and whenever you are about to assume scope, audience, behavior, names, schema, or success criteria."
+description: "Always-on check for any coding agent, including Codex, Claude, Cursor, Antigravity, Gemini, and Grok. Before code, writing, a plan, or an answer, find knowledge gaps that would change the outcome and that you cannot resolve from the repo, tools, or the conversation. Ask only those, in one short round, then wait. If there are none, do the work and stay quiet about the check. Includes Karpathy coding behavior: think before coding, simplicity first, surgical changes, and a check you can run. Use on every prompt, when the user runs /karpathy-skills-extended, and whenever you are about to assume scope, audience, behavior, names, schema, or success criteria."
 license: MIT
-when-to-use: "Every user message. Before implementing, editing, writing, planning, or answering. When a prompt leaves out a fact you would otherwise invent."
+when-to-use: "Every user message, in any coding agent. Before implementing, editing, writing, planning, or answering. When a prompt leaves out a fact you would otherwise invent."
 user-invocable: true
 metadata:
   short-description: "Ask the gaps that would change the work, then proceed"
@@ -11,7 +11,7 @@ metadata:
 
 # Karpathy skills, extended
 
-Apply this on every user message, including when nobody named this skill. Do not announce the check.
+Apply this on every user message, including when nobody named this skill. The host may be Codex, Claude, Cursor, Antigravity, Gemini, or Grok. The check is the same in each. Do not announce the check.
 
 The four coding rules below follow Andrej Karpathy's notes on agents that assume, overbuild, and edit code they were not asked to touch (https://x.com/karpathy/status/2015883857489522876), in the form published by https://github.com/multica-ai/andrej-karpathy-skills. The gap check is the part this skill adds. Matt Pocock's grill-me (https://github.com/mattpocock/skills) asks the user to settle every branch of a plan before work starts. That session fits a soft idea. On an ordinary prompt it runs long. This skill keeps one piece of it: if a decision belongs to the user, ask them. Ask only the gaps that pass the tests below, then do the task.
 
