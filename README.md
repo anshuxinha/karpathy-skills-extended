@@ -1,48 +1,54 @@
 # karpathy-skills-extended
 
-Coding agents fill the blanks in your prompt and ship the guess. "Add a delete button on the patient row" can mean hide the row, mark the record inactive, or remove the record. The agent picks one, writes the code, and opens the PR.
+Coding agents often fill in missing details and keep going. That is usually efficient, until the missing detail is actually a decision. For example, "Add a delete button on the patient row" could mean hiding the row, marking the record inactive, or permanently removing it. The agent might pick one interpretation, write the code, and open a PR before you realize there was a choice to make.
 
-Andrej Karpathy named this habit in his [notes on LLM coding mistakes](https://x.com/karpathy/status/2015883857489522876): models make wrong assumptions on your behalf and run with them. The [Karpathy guidelines](https://github.com/multica-ai/andrej-karpathy-skills) tell the agent to state those assumptions, show tradeoffs, and ask when it is unsure. Agents often write the assumption down and continue. You can see what they assumed. You still did not get a vote before the diff existed.
+In his [notes on LLM coding mistakes](https://x.com/karpathy/status/2015883857489522876), Andrej Karpathy describes how models make assumptions and then act on them. The [Karpathy guidelines](https://github.com/multica-ai/andrej-karpathy-skills) encourage agents to make those assumptions visible, explain tradeoffs, and ask when they are unsure. That is a good start, but stating an assumption is not the same as giving you a chance to decide before the code changes.
 
-Matt Pocock's [grill-me](https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md) skill, and the [grilling](https://github.com/mattpocock/skills) session under it, walk every branch of the plan and wait until nothing is left assumed. Use that when the idea is still soft. On a prompt that is already a task, the interview runs long.
+Matt Pocock's [grill-me](https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md) skill, and the [grilling](https://github.com/mattpocock/skills) session under it, take a more thorough approach. They work through the different branches of a plan and keep going until the important assumptions have been settled. This is especially useful when you are still working out what you want to build. But when your prompt already describes a concrete task, that much discussion can slow things down.
 
-This skill takes the best of both: Karpathy's discipline of surfacing assumptions, and grill-me's refusal to proceed while something that matters is still open. It stays loaded on every prompt. Before it acts, it looks for a fact that would change the result and that it cannot read from the repo, the tools, or the conversation. It asks that, in one round, with the answer it would have used. Three questions is the cap.
+This skill takes a middle ground. It keeps Karpathy's coding rules and adds a quick check for missing information that could change the result. Before coding, the agent checks whether the answer is already available in the repository, documentation, tools, or conversation. It asks only when several interpretations are reasonable and choosing between them would make a meaningful difference. The agent asks its questions in one round, explains what it would otherwise have chosen, and asks no more than three questions. If nothing important is left unresolved, it simply gets on with the work.
 
 ![Same delete-button prompt. One side ships a guessed behavior. The other asks hide, deactivate, or remove, recommends the pattern the table already uses, and then builds that.](images/one-question.png)
 
 ## The gap check
 
-All four have to be true before it asks:
+The agent asks a question only when all four conditions are met:
 
-1. You did not say it, and no earlier turn settled it.
-2. The agent cannot get it from the repo, docs, tools, or config.
-3. More than one plausible answer exists.
-4. The choice would change the files, behavior, audience, schema, copy, or the check for done.
+1. You have not specified the answer, and no earlier turn has settled it.
+2. The agent cannot find the answer in the repository, documentation, tools, or configuration.
+3. More than one reasonable interpretation exists.
+4. Choosing between those interpretations would change the files, behavior, audience, schema, copy, or definition of done.
 
-A fact that fails any line is not a question. The agent looks it up, or follows the reading that matches your request and the surrounding code. Lookup is the agent's job. Your intent is yours.
+If even one condition is not met, the agent does not interrupt you. It looks up the answer or follows the interpretation best supported by your request and the surrounding code. Finding information is the agent's job; deciding what you want is yours.
 
 ![Four gates on one line. If every gate passes, ask one to three questions and wait. If any gate fails, do the work.](images/gap-check.png)
 
 ## Coding rules
 
-The skill keeps the four Karpathy rules, so it still works if you do not install the original:
+The skill includes the four Karpathy rules, so you can use them without installing the original separately:
 
-- **Think before coding.** Name a real tradeoff when it changes the design. Prefer the simpler approach, and say so.
-- **Simplicity first.** Code that solves the request. No extra features, no one-off abstraction, no config you did not ask for.
-- **Surgical changes.** Edit only the lines the request needs. Match the file. Leave unrelated dead code alone, and say you saw it.
-- **Goal-driven execution.** Turn the task into a check you can run, then run it.
+- **Think before coding.** Consider the tradeoffs when they could affect the design. Prefer the simpler approach when it fits, and explain why.
+- **Simplicity first.** Build what the request needs. Avoid extra features, unnecessary abstractions, and configuration you did not ask for.
+- **Surgical changes.** Change only what the task requires and follow the conventions of the existing file. Leave unrelated dead code alone, but mention it if you notice it.
+- **Goal-driven execution.** Turn the request into a check you can run, then run it.
 
-On a material gap, the gap check overrides "state the assumption and proceed."
+When an unresolved decision could materially change the result, the gap check takes priority over the usual advice to state an assumption and proceed.
 
 ## Install
 
-The behavior file is [`skills/karpathy-skills-extended/SKILL.md`](skills/karpathy-skills-extended/SKILL.md). Codex, Claude, Cursor, Antigravity, Gemini, and Grok all read that Agent Skills layout. Copy the folder into the host's skills directory, and paste [`rules/karpathy-skills-extended.md`](rules/karpathy-skills-extended.md) into the host's always-on instructions. A skills directory lets the agent open the file when the description matches, and run `/karpathy-skills-extended`. The always-on file is what puts the check in context on every prompt, including in hosts that only show the description until they decide to read the skill.
+The skill's instructions live in [`skills/karpathy-skills-extended/SKILL.md`](skills/karpathy-skills-extended/SKILL.md). Codex, Claude, Cursor, Antigravity, Gemini, and Grok all use this Agent Skills layout.
+
+To install it, copy the skill folder into the host's skills directory, then copy [`rules/karpathy-skills-extended.md`](rules/karpathy-skills-extended.md) into the host's always-on instructions. The skills directory lets the agent load the full skill when it is relevant and provides the `/karpathy-skills-extended` command. The always-on file serves a different purpose: it keeps the gap check in the instructions on every prompt, including in hosts that do not load the full skill until they decide it applies.
 
 ```bash
 npx skills add anshuxinha/karpathy-skills-extended
 ```
 
-Pass `-a` with the installer name: `codex`, `claude-code`, `cursor`, `antigravity`, `antigravity-cli`, `gemini-cli`, or `grok`. Example: `npx skills add anshuxinha/karpathy-skills-extended -a codex`.
+To install for a particular host, pass `-a` followed by the installer name: `codex`, `claude-code`, `cursor`, `antigravity`, `antigravity-cli`, `gemini-cli`, or `grok`. For example:
+
+```bash
+npx skills add anshuxinha/karpathy-skills-extended -a codex
+```
 
 | Host | Skill folder | Always-on file |
 | --- | --- | --- |
@@ -55,7 +61,7 @@ Pass `-a` with the installer name: `codex`, `claude-code`, `cursor`, `antigravit
 
 Those paths are the ones the [skills installer](https://github.com/vercel-labs/skills) and each host's docs use. Codex also reads `agents/openai.yaml` inside the skill for its skill picker.
 
-Plugin install adds the slash command on that host. The always-on file is still the copy that loads the check every session.
+Installing the plugin adds the slash command on that host. The always-on file is still the copy that loads the check every session.
 
 ```bash
 grok plugin install anshuxinha/karpathy-skills-extended --trust
@@ -64,9 +70,9 @@ agy plugin install https://github.com/anshuxinha/karpathy-skills-extended
 
 ## Examples
 
-"Add a delete button on the patient row." Delete might hide the row, mark the record inactive, or remove the record. The agent asks one question, recommends whatever that table already does, and waits.
+"Add a delete button on the patient row." The word "delete" could mean hiding the row, marking the record inactive, or removing it. The agent checks how the rest of the table handles deletion, recommends the matching behavior, and asks you to settle the choice before making the change.
 
-"Rename getUser to fetchUser in src/api.ts." One reading. The agent renames it.
+"Rename getUser to fetchUser in src/api.ts." The request is clear enough to act on, so the agent renames the function without asking an unnecessary question.
 
 ## License
 
